@@ -1,5 +1,10 @@
 # das-EzBooruTagEditor
 
+<p align="center">
+  <img src="https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/preview.png" alt="Screenshot">
+</p>
+
+
 ## Introduction
 This application is designed to accelerate and simplify the management of Booru-style tags, primarily for fine-tuning Stable Diffusion models where tags play a crucial role, often more significant than the actual image dataset.
 
