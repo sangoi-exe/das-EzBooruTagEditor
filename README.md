@@ -15,6 +15,7 @@ The app is in its final stages of adjustment and testing before the code becomes
 
 ### Starting Up
 - **Select Folder**: From the home screen, choose the folder containing images and their respective text files (.txt).
+![Choose Dir](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/choose_dir.gif)
 
 ### Managing Tags
 - **Viewing and Selecting Tags**:
@@ -22,11 +23,16 @@ The app is in its final stages of adjustment and testing before the code becomes
   - Selecting a list item displays the image and tags.
 - **Editing Tags**:
   - **Delete**: Click a tag once to select, and again to delete.
-  - **Undo Deletion**: Click 'Undo' or use 'Ctrl+Z'.
+  ![Delete](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/delete.gif)
+  - **Undo Deletion**: Click 'Undo' or use 'Ctrl+Z'.  
+  ![Undo](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/undo.gif)
   - **Add Tag**: Enter the tag in the text box and press "Add Tag" or "Enter". Unique tags are added to a unique list; similar tags are grouped.
+  ![Add](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/add_tag.gif)
+  
 
 ### Navigation
-- Navigate images using the list, keyboard arrows, or mouse scroll within the image frame.
+- Navigate through images using (in the order of navigation shown in the gif) mouse scroll with the cursor on the image frame, by clicking in the list, with the keyboard arrows (up and down), or by using the buttons on the interface.
+![Navigation](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/navigate.gif)
 
 ### Saving and Grouping
 - **Save Changes**: Press 'Save' or use 'Ctrl+S'.
@@ -34,11 +40,14 @@ The app is in its final stages of adjustment and testing before the code becomes
   - Note: Tags may be grouped multiple times for analysis ease.
 
 ### Important Notes
+- **🛑 Backup First**: **Always back up your tag files before using this app.** This step is crucial to protect your data against any unintended changes.
 - **Non-Real-Time Editing**: Changes are not real-time; navigate away to discard large mistakes.
 - **Save Before Switching**: Unsaved changes are lost when switching images. Future updates may include memory-based temporary saving.
 
 ## Future Plans
-The app aims to introduce memory-based modifications to prevent loss of unsaved changes when switching between images.
+I plan to introduce memory-based modifications in the app to prevent the loss of unsaved changes when switching between images.
+
+
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
