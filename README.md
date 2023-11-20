@@ -8,8 +8,10 @@
 ## Introduction
 This application is designed to accelerate and simplify the management of Booru-style tags, primarily for fine-tuning Stable Diffusion models where tags play a crucial role, often more significant than the actual image dataset.
 
-## Current Status
-The app is in its final stages of adjustment and testing before the code becomes publicly available. It's a large and somewhat complex single-file codebase, chosen for its simplicity due to the low data flow involved.
+## Installation
+To set up the das-EzBooruTagEditor on your system, follow these steps:
+1. **Clone the Repository**: Clone this repository to your local machine using `git clone https://github.com/DevArqSangoi/das-EzBooruTagEditor.git`.
+2. **Install Pillow**: This app requires the Pillow library for image processing. Install it by running `pip install Pillow` in your command line.
 
 ## Operation Guide
 
@@ -46,11 +48,11 @@ The app is in its final stages of adjustment and testing before the code becomes
 
 ## Future Plans
 I plan to introduce memory-based modifications in the app to prevent the loss of unsaved changes when switching between images.
-
-
-
-This work is licensed under a
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+  
+<br />
+  
+## License
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
