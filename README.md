@@ -9,10 +9,18 @@
 This application is designed to accelerate and simplify the management of Booru-style tags, primarily for fine-tuning Stable Diffusion models where tags play a crucial role, often more significant than the actual image dataset.
 
 ## Installation
-To set up the das-EzBooruTagEditor on your system, follow these steps:
-1. **Clone the Repository**: Clone this repository to your local machine using `git clone https://github.com/DevArqSangoi/das-EzBooruTagEditor.git`.
-2. **Install Pillow**: This app requires the Pillow library for image processing. Install it by running `pip install Pillow` in your command line.
 
+You can set up das-EzBooruTagEditor on your system in two ways:
+
+### Option 1: Using the Executable
+- **Download the Executable**: Go to the [Releases](https://github.com/DevArqSangoi/das-EzBooruTagEditor/releases) page and download the latest `.exe` file.
+- **Run**: Double-click the downloaded file to run the application. No installation or Python environment required.
+
+### Option 2: Cloning the Repository
+- **Clone the Repository**: Run `git clone https://github.com/DevArqSangoi/das-EzBooruTagEditor.git` to clone the repository to your local machine.
+- **Navigate to the Directory**: Change to the directory where the repository was cloned. E.g., `cd das-EzBooruTagEditor`.
+- **Install Dependencies**: Install the Pillow library by running `pip install Pillow` in your command line. This is necessary for image processing.
+- **Run the Script**: Execute the script with `python EzBooruTagEditor.py`.
 ## Operation Guide
 
 ### Starting Up
