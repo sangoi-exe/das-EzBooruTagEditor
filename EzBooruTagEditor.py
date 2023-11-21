@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.font as tkFont
 import os
+import json
+import re
 from tkinter import filedialog
 from PIL import Image, ImageTk
 from tkinter import ttk
@@ -60,7 +62,7 @@ class TextImageEditor:
 
         self.right_frame = tk.Frame(self.main_frame, borderwidth=4, relief="sunken")
         self.right_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=False)
-        self.right_frame.config(width=300)
+        self.right_frame.config(width=400)
         self.right_frame.pack_propagate(False)
 
         self.tag_frame = tk.Frame(self.right_frame)
@@ -117,8 +119,14 @@ class TextImageEditor:
         self.right_frame.bind("<Configure>", lambda event: self.resize_image())
 
     def choose_directory(self):
-        self.current_directory = filedialog.askdirectory()
-        self.update_file_list()
+        new_directory = filedialog.askdirectory()
+
+        if new_directory:
+            self.current_directory = new_directory
+            self.current_image = None
+            self.image_label.config(image=self.current_image)
+            self.clear_tag_frame()
+            self.update_file_list()
 
     def update_file_list(self):
         if not self.current_directory:
@@ -130,14 +138,16 @@ class TextImageEditor:
         for file in all_files:
             name, ext = os.path.splitext(file)
             if ext.lower() in [".txt"]:
-                for img_ext in [".png", ".jpg", ".jpeg", ".gif"]:
+                for img_ext in [".png", ".jpg", ".jpeg", ".gif", ".webp"]:
                     img_path = os.path.join(self.current_directory, name + img_ext)
                     if os.path.exists(img_path):
                         self.file_map[file] = img_path
                         break
 
+        sorted_files = sorted(self.file_map.keys(), key=self.natural_sort_key)
+
         self.listbox.delete(0, tk.END)
-        for txt_file in self.file_map.keys():
+        for txt_file in sorted_files:
             self.listbox.insert(tk.END, txt_file)
 
     def change_image(self, direction):
@@ -173,8 +183,7 @@ class TextImageEditor:
         self.change_image(direction)
 
     def show_file_content(self, event):
-        self.clear_tag_frame()
-
+        self.currently_marked_tag = []
         selected_index = self.listbox.curselection()
         if not selected_index:
             return
@@ -215,37 +224,44 @@ class TextImageEditor:
         self.current_image = ImageTk.PhotoImage(image)
 
         self.image_label.config(image=self.current_image)
-        self.image_label.image = self.current_image
 
     def read_tags_from_file(self, file_path):
         try:
+            json_path = "wordsToGroup.json"
+            try:
+                with open(json_path, "r") as json_file:
+                    common_words = json.load(json_file).get("words", [])
+            except FileNotFoundError:
+                # Cria um arquivo JSON padrão com palavras pré-definidas.
+                common_words = ["hair", "lips"]
+                with open(json_path, "w") as json_file:
+                    json.dump({"words": common_words}, json_file)
+
+            common_word_to_tags = {word: [] for word in common_words}
+
             with open(file_path, "r") as file:
                 content = file.read()
                 tags = content.split(",")
                 tags = [tag.strip() for tag in tags if tag.strip()]
 
-                word_to_tags = {}
-                for tag in tags:
-                    words = tag.split()
-                    for word in words:
-                        word_to_tags.setdefault(word, set()).add(tag)
+            for tag in tags:
+                for word in common_word_to_tags:
+                    if word in tag.split():
+                        common_word_to_tags[word].append(tag)
+                        break
 
-                for word in list(word_to_tags.keys()):
-                    if len(word_to_tags[word]) < 2:
-                        del word_to_tags[word]
+            self.unique_tags = [tag for tag in tags if all(word not in tag for word in common_words)]
+            self.common_words_tags = common_word_to_tags
 
-                self.common_words_tags = {word: list(tags_set) for word, tags_set in word_to_tags.items()}
-
-                self.unique_tags = [tag for tag in tags if all(word not in word_to_tags for word in tag.split())]
-                return self.unique_tags, self.common_words_tags
-        except FileNotFoundError:
-            print(f"File not found: {file_path}")
+            return self.unique_tags, self.common_words_tags
+        except FileNotFoundError as e:
+            print(f"File not found: {e.filename}")
             return [], {}
 
     def create_tag_widget(self):
         customFont = tkFont.Font(family="Helvetica", size=10)
         self.clear_tag_frame()
-        max_width = 300
+        max_width = 400
 
         unique_frame = tk.Frame(self.unique_frame)
         unique_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
@@ -274,30 +290,31 @@ class TextImageEditor:
 
             current_width += tag_width
 
-        for common_word, common_tags in self.common_words_tags.items():
-            common_frame = tk.Frame(self.common_frame)
-            common_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-            current_width = 0
+        if self.common_words_tags:
+            for common_word, common_tags in self.common_words_tags.items():
+                common_frame = tk.Frame(self.common_frame)
+                common_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+                current_width = 0
 
-            for tag in common_tags:
-                temp_widget = tk.Label(common_frame, text=tag, borderwidth=4, relief="raised", font=customFont)
-                tag_width = temp_widget.winfo_reqwidth()
-                temp_widget.destroy()
+                for tag in common_tags:
+                    temp_widget = tk.Label(common_frame, text=tag, borderwidth=4, relief="raised", font=customFont)
+                    tag_width = temp_widget.winfo_reqwidth()
+                    temp_widget.destroy()
 
-                if current_width + tag_width > max_width:
-                    common_frame = tk.Frame(self.common_frame)
-                    common_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-                    current_width = 0
+                    if current_width + tag_width > max_width:
+                        common_frame = tk.Frame(self.common_frame)
+                        common_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+                        current_width = 0
 
-                tag_label = tk.Label(common_frame, text=tag, borderwidth=2, relief="raised", font=customFont)
-                tag_label.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+                    tag_label = tk.Label(common_frame, text=tag, borderwidth=2, relief="raised", font=customFont)
+                    tag_label.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-                tag_label.original_bg = tag_label.cget("background")
-                tag_label.bind("<Enter>", lambda event, tl=tag_label: self.on_hover(tl))
-                tag_label.bind("<Leave>", lambda event, tl=tag_label: self.on_leave(tl))
-                tag_label.bind("<Button-1>", lambda event, t=tag, tl=tag_label: self.on_click(t, tl))
+                    tag_label.original_bg = tag_label.cget("background")
+                    tag_label.bind("<Enter>", lambda event, tl=tag_label: self.on_hover(tl))
+                    tag_label.bind("<Leave>", lambda event, tl=tag_label: self.on_leave(tl))
+                    tag_label.bind("<Button-1>", lambda event, t=tag, tl=tag_label: self.on_click(t, tl))
 
-                current_width += tag_width
+                    current_width += tag_width
 
     def rearrange_tags(self):
         self.create_tag_widget()
@@ -307,23 +324,12 @@ class TextImageEditor:
         if not new_tag:
             return
 
-        words = set(new_tag.split())
         common_word_found = False
-
-        for word in words:
-            if word in self.common_words_tags:
-                self.common_words_tags[word].append(new_tag)
+        for common_word in self.common_words_tags:
+            if common_word in new_tag.split():
+                self.common_words_tags[common_word].append(new_tag)
                 common_word_found = True
-
-        if not common_word_found:
-            for tag in self.unique_tags:
-                if words.intersection(set(tag.split())):
-                    common_word = words.intersection(set(tag.split())).pop()
-                    if common_word not in self.common_words_tags:
-                        self.common_words_tags[common_word] = []
-                    self.common_words_tags[common_word].extend([tag, new_tag])
-                    self.unique_tags.remove(tag)
-                    common_word_found = True
+                break
 
         if not common_word_found:
             self.unique_tags.append(new_tag)
@@ -378,7 +384,7 @@ class TextImageEditor:
 
     def on_hover(self, tag_label):
         tag_label.hover_bg = tag_label.cget("background")
-        tag_label.config(bg="red")
+        tag_label.config(bg="#ffcac9")
 
     def on_click(self, tag, tag_label):
         if tag_label == self.currently_marked_tag:
@@ -390,7 +396,7 @@ class TextImageEditor:
                 del self.marked_tags[self.currently_marked_tag]
 
             self.marked_tags[tag_label] = tag
-            tag_label.config(relief="sunken", bg="red")
+            tag_label.config(relief="sunken", bg="#ffcac9")
             self.currently_marked_tag = tag_label
 
     def on_leave(self, tag_label):
@@ -401,6 +407,9 @@ class TextImageEditor:
         for frame in [self.unique_frame, self.common_frame]:
             for widget in frame.winfo_children():
                 widget.destroy()
+
+    def natural_sort_key(self, s):
+        return [int(text) if text.isdigit() else text.lower() for text in re.split("([0-9]+)", s)]
 
 
 if __name__ == "__main__":
