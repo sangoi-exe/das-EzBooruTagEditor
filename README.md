@@ -60,7 +60,7 @@ I plan to introduce memory-based modifications in the app to prevent the loss of
 ## Changelog
 
 ### [2023-11-21]
-A special thanks to @Nenotriple for their assistance in testing the app and identifying key improvements and bugs to be addressed.
+A special thanks to [@Nenotriple](https://github.com/Nenotriple) for their assistance in testing the app and identifying key improvements and bugs to be addressed. [#1](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/1)
 
 ### New Implementations
 
