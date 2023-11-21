@@ -232,7 +232,6 @@ class TextImageEditor:
                 with open(json_path, "r") as json_file:
                     common_words = json.load(json_file).get("words", [])
             except FileNotFoundError:
-                # Cria um arquivo JSON padrão com palavras pré-definidas.
                 common_words = ["hair", "lips"]
                 with open(json_path, "w") as json_file:
                     json.dump({"words": common_words}, json_file)
