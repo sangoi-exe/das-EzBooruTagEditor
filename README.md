@@ -56,6 +56,31 @@ You can set up das-EzBooruTagEditor on your system in two ways:
 
 ## Future Plans
 I plan to introduce memory-based modifications in the app to prevent the loss of unsaved changes when switching between images.
+
+## Changelog
+
+### [2023-11-21]
+A special thanks to @Nenotriple for their assistance in testing the app and identifying key improvements and bugs to be addressed.
+
+### New Implementations
+
+- **Manual Tag Grouping with JSON Configuration**: Transitioned from the automatic grouping of tags based on common words to a user-driven approach using a JSON file. Users now have direct control over tag associations, defining their own groupings in the `wordsToGroup.json`. This update eliminates the program's previous behavior of automatic tag duplication, offering a tailored tagging experience.
+
+- **Enhanced Alphanumeric Sorting Logic**: Improved the file sorting algorithm to use natural alphanumeric ordering, ensuring that filenames are sorted in an intuitive sequence (e.g., '2' comes before '10').
+
+- **WebP Image Support**: Added support for WebP images. The application now recognizes `.webp` along with other common image formats (`.png`, `.jpg`, `.jpeg`, `.gif`).
+
+- **UI Enhancement for Token Deletion**: Updated the color for the delete token highlight, enhancing visual clarity and user experience.
+
+### Bug Fixes
+
+- **Interface Clearing on New Directory Selection**: Corrected a minor bug where previously selected images and tags were persisting after a new directory was chosen. Now, the interface is cleared, ensuring a fresh start with each directory change.
+
+- **Improved Choose Directory Handling**: Addressed an issue where canceling out of the "Choose Directory" dialog would lead to a loss of reference to the currently selected directory. Previously, this would leave the file list populated but non-functional. The program now retains the reference to the current directory unless a new one is explicitly chosen, ensuring continuous access to the file list.
+
+- **Duplicate Tag Handling**: Fixed a major bug where duplicate tags shown in the UI were being saved as duplicates in the text file. This fix prevents the unintended duplication of tags in the saved files.
+
+- **Token Deletion Bug**: Addressed a major bug where the token delete function stopped working if the user selected a token but moved to the next/previous image without deleting it.
   
 <br />
   
