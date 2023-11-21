@@ -49,8 +49,6 @@ You can set up das-EzBooruTagEditor on your system in two ways:
 
 ### Saving and Grouping
 - **Save Changes**: Press 'Save' or use 'Ctrl+S'.
-- **Tag Grouping**: The app groups tags with common words (e.g., "blue hair" and "white hair") to ease removing redundant or incorrect automatic tags.
-  - Note: Tags may be grouped multiple times for analysis ease.
 
 ### Important Notes
 - **🛑 Backup First**: **Always back up your tag files before using this app.** This step is crucial to protect your data against any unintended changes.
