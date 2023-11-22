@@ -72,6 +72,7 @@ Again, special thanks to [@Nenotriple](https://github.com/Nenotriple) for the va
 
 - **Focus Issue in Tag Entry**: Fixed a bug where double-clicking the tag entry field caused the focus to shift away from the listbox, clearing the selection. [#3](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/2)
 - **Filename and Image/Tag Pairing**: Resolved an issue where the wrong filename was sometimes incorrectly associated with the displayed image/tags. This fix ensures that the correct img-txt pair is loaded and the correct txt file is saved. [#2](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/2)
+- **Refactoring of Tag Management Functions**: Refactored the `add_tag` and `rearrange_tags` functions to address inconsistencies in tag classification, enhancing the reliability and accuracy of the tagging process.
 
 ### [2023-11-21]
 A special thanks to [@Nenotriple](https://github.com/Nenotriple) for their assistance in testing the app and identifying key improvements and bugs to be addressed. [#1](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/1)
