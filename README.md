@@ -45,6 +45,7 @@ You can set up das-EzBooruTagEditor on your system in two ways:
 
 ### Navigation
 - Navigate through images using (in the order of navigation shown in the gif) mouse scroll with the cursor on the image frame, by clicking in the list, with the keyboard arrows (up and down), or by using the buttons on the interface.
+
 ![Navigation](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/navigate.gif)
 
 ### Saving
