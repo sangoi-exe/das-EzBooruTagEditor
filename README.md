@@ -21,8 +21,8 @@ You can set up das-EzBooruTagEditor on your system in two ways:
 - **Navigate to the Directory**: Change to the directory where the repository was cloned. E.g., `cd das-EzBooruTagEditor`.
 - **Install Dependencies**: Install the Pillow library by running `pip install Pillow` in your command line. This is necessary for image processing.
 - **Run the Script**: Execute the script with `python EzBooruTagEditor.py`.
-## Operation Guide
 
+## Operation Guide
 ### Starting Up
 - **Select Folder**: From the home screen, choose the folder containing images and their respective text files (.txt).
 ![Choose Dir](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/choose_dir.gif)
