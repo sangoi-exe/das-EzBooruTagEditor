@@ -1,7 +1,7 @@
 # das-EzBooruTagEditor
 
 <p align="center">
-  <img src="https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/preview.png" alt="Screenshot">
+  <img src="https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/preview2.png" alt="Screenshot">
 </p>
 
 
