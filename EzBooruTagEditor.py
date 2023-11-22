@@ -272,7 +272,6 @@ class TextImageEditor:
 
 			self.unique_tags = [tag for tag in tags if all(word not in tag for word in common_words)]
 
-			# Verificar e mover tags com menos de duas ocorrências para unique_tags
 			for word, tag_list in list(common_word_to_tags.items()):
 				if len(tag_list) < 2:
 					self.unique_tags.extend(tag_list)
@@ -413,15 +412,12 @@ class TextImageEditor:
 		with open(os.path.join(self.current_directory, self.current_file), "w") as f:
 			f.write(new_content)
 		
-		# Cria uma nova janela Toplevel que serve como notificação
 		self.popup = tk.Toplevel(self.root)
-		self.popup.overrideredirect(True)  # Isso remove a barra de título
+		self.popup.overrideredirect(True)
 
-		# Cria um label dentro da janela popup para exibir a mensagem
 		label = tk.Label(self.popup, text="Saved!", borderwidth=2, relief=tk.RIDGE)
-		label.pack(ipadx=10, ipady=5)  # Adiciona um pouco de padding interno
+		label.pack(ipadx=10, ipady=5)
 
-		# Atualiza o layout dos widgets e obtém as coordenadas globais do botão Save
 		self.root.update_idletasks()
 		global_x = self.save_button.winfo_rootx()
 		global_y = self.save_button.winfo_rooty()
@@ -541,7 +537,6 @@ class TextImageEditor:
 		try:
 			with open(file_path, "r+") as file:
 				data = json.load(file)
-				# Salva a API key e o login no JSON
 				data["api_key"] = api_key
 				data["login"] = login
 				file.seek(0)
