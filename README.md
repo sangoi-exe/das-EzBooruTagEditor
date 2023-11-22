@@ -57,6 +57,22 @@ I plan to introduce memory-based modifications in the app to prevent the loss of
 
 ## Changelog
 
+### [2023-11-22]
+Again, special thanks to [@Nenotriple](https://github.com/Nenotriple) for the valuable contributions in testing the application and pinpointing crucial improvements and bugs.
+
+#### New Features
+
+- **Tag Description on Right-Click**: Implemented a feature where right-clicking on a tag fetches its description from the Danbooru API, displayed in a dialog box. This feature requires a Danbooru account. A popup providing guidance for account creation and API key generation will appear if a user attempts to use this feature without having configured the API key and login.
+- **Save Confirmation Alert**: Added an alert confirmation when using the save function to verify successful activation.
+- **Console Log for Loaded Images and Tag Files**: Included logging in the console about the currently selected image and tag file for verification purposes.
+- **Image Name Display**: Introduced a text box below the tags to display the name of the currently opened image, adding another layer of verification for image and tag file matching.
+- **Directory Display in Window Title**: The program's window title now includes the name of the selected directory, enhancing user awareness of the current working directory.
+
+#### Bug Fixes
+
+- **Focus Issue in Tag Entry**: Fixed a bug where double-clicking the tag entry field caused the focus to shift away from the listbox, clearing the selection. [#3](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/2)
+- **Filename and Image/Tag Pairing**: Resolved an issue where the wrong filename was sometimes incorrectly associated with the displayed image/tags. This fix ensures that the correct img-txt pair is loaded and the correct txt file is saved. [#2](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/2)
+
 ### [2023-11-21]
 A special thanks to [@Nenotriple](https://github.com/Nenotriple) for their assistance in testing the app and identifying key improvements and bugs to be addressed. [#1](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/1)
 
