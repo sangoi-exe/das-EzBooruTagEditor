@@ -557,6 +557,7 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = TextImageEditor(root)
     root.geometry("800x600")
+    root.minsize(800,350)
     style = ttk.Style()
     style.theme_use("classic")
     style.configure("TScrollbar", arrowsize=15)
