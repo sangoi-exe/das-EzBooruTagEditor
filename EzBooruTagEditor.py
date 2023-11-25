@@ -14,13 +14,13 @@ class TextImageEditor:
     def __init__(self, root):
         self.root = root
         self.root.title(f"Ez Booru Tag Editor")
-        self.currently_marked_tag = None
         self.current_image_path = None
         self.current_directory = None
         self.current_image = None
         self.current_file = None
         self.apiKey = None
         self.login = None
+        self.currently_marked_tag = []
         self.common_words = []
         self.removed_tags = []
         self.unique_tags = []
@@ -200,8 +200,7 @@ class TextImageEditor:
             direction = -1 if button_direction == "<" else 1
             self.change_image(direction)
 
-    def show_file_content(self, event):
-        self.currently_marked_tag = []
+    def show_file_content(self, event):        
         selected_index = self.listbox.curselection()
         if not selected_index:
             return
@@ -288,6 +287,7 @@ class TextImageEditor:
     def create_tag_widget(self):
         customFont = tkFont.Font(family="Helvetica", size=10)
         self.clear_tag_frame()
+        self.currently_marked_tag = None
         max_width = 400
 
         unique_frame = tk.Frame(self.unique_frame)
