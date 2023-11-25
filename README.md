@@ -59,6 +59,10 @@ I plan to introduce memory-based modifications in the app to prevent the loss of
 
 ## Changelog
 
+### [2023-11-23]
+#### Bug Fixes
+- Fixed a minor bug in the interface, identified by [@Nenotriple](https://github.com/Nenotriple), where resizing the interface horizontally to a smaller size, while displaying an image with a landscape aspect ratio, caused the image to disappear and trigger an error in the 'resize_image' function.
+
 ### [2023-11-22]
 Again, special thanks to [@Nenotriple](https://github.com/Nenotriple) for the valuable contributions in testing the application and pinpointing crucial improvements and bugs.
 
