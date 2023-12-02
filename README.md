@@ -23,6 +23,13 @@ You can set up das-EzBooruTagEditor on your system in two ways:
 - **Run the Script**: Execute the script with `python EzBooruTagEditor.py`.
 
 ## Operation Guide
+
+> [!CAUTION]
+> ❗BACKUP YOUR TAG FILES BEFORE USING THIS APP❗
+
+> [!WARNING]
+> ❗BACKUP YOUR TAG FILES BEFORE USING THIS APP❗
+
 ### Starting Up
 - **Select Folder**: From the home screen, choose the folder containing images and their respective text files (.txt).
 ![Choose Dir](https://github.com/DevArqSangoi/das-EzBooruTagEditor/blob/main/choose_dir.gif)
@@ -49,8 +56,8 @@ You can set up das-EzBooruTagEditor on your system in two ways:
 ### Saving
 - **Save Changes**: Press 'Save' or use 'Ctrl+S'.
 
-### Important Notes
-- **🛑 Backup First**: **Always back up your tag files before using this app.** This step is crucial to protect your data against any unintended changes.
+### ❗Important Notes
+- **❗Backup First**: **Always back up your tag files before using this app.** This step is crucial to protect your data against any unintended changes.
 - **Non-Real-Time Editing**: Changes are not real-time; navigate away to discard large mistakes.
 - **Save Before Switching**: Unsaved changes are lost when switching images. Future updates may include memory-based temporary saving.
 
