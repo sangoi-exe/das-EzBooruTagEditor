@@ -59,6 +59,10 @@ I plan to introduce memory-based modifications in the app to prevent the loss of
 
 ## Changelog
 
+### [2023-12-02]
+#### Improvement
+- **Tag list update**: Deleting a tag no longer updates the tag list (as it's not necessary), making tag adjustment way more smoth and comfortable.  
+
 ### [2023-11-25]
 #### Bug Fix
 - **Token Deletion Bug**: Addressed a major bug where the token delete function stopped working if a new tag was added while a token was marked for deletion.
