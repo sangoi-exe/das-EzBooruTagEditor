@@ -60,6 +60,12 @@ I plan to introduce memory-based modifications in the app to prevent the loss of
 ## Changelog
 
 ### [2023-12-02]
+#### Bug Fix
+- **Duplicate Tags**: Fixed a major bug that led to inconsistencies in saving and displaying tags when duplicate entries were present in the txt file. 
+
+### New Feature
+- **Remove Duplicates**: Added the ability to remove duplicate tags effortlessly. To use this feature, simply click on 'Remove Duplicates' in the interface.
+
 #### Improvement
 - **Tag list update**: Deleting a tag no longer updates the tag list (as it's not necessary), making tag adjustment way more smoth and comfortable.  
 
@@ -69,13 +75,12 @@ I plan to introduce memory-based modifications in the app to prevent the loss of
 
 ### [2023-11-23]
 #### Bug Fixes
-- Fixed a minor bug in the interface, identified by [@Nenotriple](https://github.com/Nenotriple), where resizing the interface horizontally to a smaller size, while displaying an image with a landscape aspect ratio, caused the image to disappear and trigger an error in the 'resize_image' function.
+- **Interface problem**: Fixed a minor bug in the interface, identified by [@Nenotriple](https://github.com/Nenotriple), where resizing the interface horizontally to a smaller size, while displaying an image with a landscape aspect ratio, caused the image to disappear and trigger an error in the 'resize_image' function.
 
 ### [2023-11-22]
 Again, special thanks to [@Nenotriple](https://github.com/Nenotriple) for the valuable contributions in testing the application and pinpointing crucial improvements and bugs.
 
 #### New Features
-
 - **Tag Description on Right-Click**: Implemented a feature where right-clicking on a tag fetches its description from the Danbooru API, displayed in a dialog box. This feature requires a Danbooru account. A popup providing guidance for account creation and API key generation will appear if a user attempts to use this feature without having configured the API key and login.
 - **Save Confirmation Alert**: Added an alert confirmation when using the save function to verify successful activation.
 - **Console Log for Loaded Images and Tag Files**: Included logging in the console about the currently selected image and tag file for verification purposes.
@@ -83,7 +88,6 @@ Again, special thanks to [@Nenotriple](https://github.com/Nenotriple) for the va
 - **Directory Display in Window Title**: The program's window title now includes the name of the selected directory, enhancing user awareness of the current working directory.
 
 #### Bug Fixes
-
 - **Focus Issue in Tag Entry**: Fixed a bug where double-clicking the tag entry field caused the focus to shift away from the listbox, clearing the selection. [#3](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/2)
 - **Filename and Image/Tag Pairing**: Resolved an issue where the wrong filename was sometimes incorrectly associated with the displayed image/tags. This fix ensures that the correct img-txt pair is loaded and the correct txt file is saved. [#2](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/2)
 - **Refactoring of Tag Management Functions**: Refactored the `add_tag` and `rearrange_tags` functions to address inconsistencies in tag classification, enhancing the reliability and accuracy of the tagging process.
@@ -92,7 +96,6 @@ Again, special thanks to [@Nenotriple](https://github.com/Nenotriple) for the va
 A special thanks to [@Nenotriple](https://github.com/Nenotriple) for their assistance in testing the app and identifying key improvements and bugs to be addressed. [#1](https://github.com/DevArqSangoi/das-EzBooruTagEditor/issues/1)
 
 ### New Implementations
-
 - **Manual Tag Grouping with JSON Configuration**: Transitioned from the automatic grouping of tags based on common words to a user-driven approach using a JSON file. Users now have direct control over tag associations, defining their own groupings in the `config.json`. This update eliminates the program's previous behavior of automatic tag duplication, offering a tailored tagging experience.
 
 - **Enhanced Alphanumeric Sorting Logic**: Improved the file sorting algorithm to use natural alphanumeric ordering, ensuring that filenames are sorted in an intuitive sequence (e.g., '2' comes before '10').
@@ -102,7 +105,6 @@ A special thanks to [@Nenotriple](https://github.com/Nenotriple) for their assis
 - **UI Enhancement for Token Deletion**: Updated the color for the delete token highlight, enhancing visual clarity and user experience.
 
 ### Bug Fixes
-
 - **Interface Clearing on New Directory Selection**: Corrected a minor bug where previously selected images and tags were persisting after a new directory was chosen. Now, the interface is cleared, ensuring a fresh start with each directory change.
 
 - **Improved Choose Directory Handling**: Addressed an issue where canceling out of the "Choose Directory" dialog would lead to a loss of reference to the currently selected directory. Previously, this would leave the file list populated but non-functional. The program now retains the reference to the current directory unless a new one is explicitly chosen, ensuring continuous access to the file list.

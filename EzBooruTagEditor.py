@@ -104,6 +104,9 @@ class TextImageEditor:
 		)
 		self.dir_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
+		self.delete_duplicates_button = tk.Button(self.button_frame, text="Remove Duplicates", command=self.remove_duplicate_tags)
+		self.delete_duplicates_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
 		self.api_key_button = tk.Button(
 			self.button_frame,
 			text="Add API Key",
@@ -561,7 +564,40 @@ class TextImageEditor:
 			print(f"Error: The file {file_path} was not found.")
 		except json.JSONDecodeError:
 			print("Error: The file is not a valid JSON document.")
+	
+	def remove_duplicate_tags(self):
+		seen_tags = set()
+		unique_tags_no_duplicates = []
+		for tag in self.unique_tags:
+			if tag not in seen_tags:
+				unique_tags_no_duplicates.append(tag)
+				seen_tags.add(tag)
 
+		self.unique_tags = unique_tags_no_duplicates
+		for word, tags in self.common_words_tags.items():
+			filtered_tags = []
+			for tag in tags:
+				if tag not in seen_tags:
+					filtered_tags.append(tag)
+					seen_tags.add(tag)
+			self.common_words_tags[word] = filtered_tags
+		self.popup = tk.Toplevel(self.root)
+		self.popup.overrideredirect(True)
+
+		label = tk.Label(self.popup, text="Removed!", borderwidth=2, relief=tk.RIDGE)
+		label.pack(ipadx=10, ipady=5)
+
+		self.root.update_idletasks()
+		global_x = self.delete_duplicates_button.winfo_rootx()
+		global_y = self.delete_duplicates_button.winfo_rooty()
+
+		x_offset = global_x + self.delete_duplicates_button.winfo_width() + 5
+		y_offset = global_y + 2
+
+		self.popup.geometry(f"+{x_offset}+{y_offset}")
+
+		self.popup.after(1000, self.popup.destroy)
+		self.rearrange_tags()
 
 if __name__ == "__main__":
 	root = tk.Tk()
