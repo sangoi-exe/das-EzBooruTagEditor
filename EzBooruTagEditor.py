@@ -200,7 +200,7 @@ class TextImageEditor:
 			direction = -1 if button_direction == "<" else 1
 			self.change_image(direction)
 
-	def show_file_content(self, event):        
+	def show_file_content(self, event):
 		selected_index = self.listbox.curselection()
 		if not selected_index:
 			return
@@ -247,6 +247,8 @@ class TextImageEditor:
 		self.image_box.config(image=self.current_image)
 
 	def read_tags_from_file(self, file_path):
+		self.unique_tags = []
+		self.common_words_tags = {}
 		try:
 			json_path = "config.json"
 			try:
@@ -257,7 +259,7 @@ class TextImageEditor:
 				with open(json_path, "w") as json_file:
 					json.dump({"words": self.common_words}, json_file)
 
-			common_word_to_tags = {word: set() for word in self.common_words}
+			common_word_to_tags = {word: [] for word in self.common_words}
 
 			with open(file_path, "r") as file:
 				content = file.read()
@@ -266,35 +268,30 @@ class TextImageEditor:
 			for tag in tags:
 				for word in self.common_words:
 					if word in tag.split():
-						common_word_to_tags[word].add(tag)
+						common_word_to_tags[word].append(tag)
 						break
+				else:
+					self.unique_tags.append(tag)
 
-			self.unique_tags = [tag for tag in tags if not any(tag in common_word_to_tags[word] for word in self.common_words)]
-
-			# Verificação local nas tags únicas
 			for unique_tag in self.unique_tags[:]:
-				unique_words = set(unique_tag.split())
-				for common_word, common_tags in common_word_to_tags.items():
-					common_tags_words = set(word for tag in common_tags for word in tag.split())
-					if unique_words.intersection(common_tags_words):
-						common_word_to_tags[common_word].add(unique_tag)
+				unique_tag_words = set(unique_tag.split())
+				for common_word in self.common_words:
+					if common_word in unique_tag_words:
+						common_word_to_tags[common_word].append(unique_tag)
 						self.unique_tags.remove(unique_tag)
 						break
+					
+			for word, tags in common_word_to_tags.items():
+				if len(tags) == 1:
+					self.unique_tags.extend(tags)
+					common_word_to_tags[word] = []
 
-			for word, tag_set in list(common_word_to_tags.items()):
-				if len(tag_set) < 2:
-					self.unique_tags.extend(tag_set)
-					del common_word_to_tags[word]
-
-			self.common_words_tags = {word: list(tags) for word, tags in common_word_to_tags.items()}
+			self.common_words_tags = {word: tags for word, tags in common_word_to_tags.items()}
 
 			return self.unique_tags, self.common_words_tags
 		except FileNotFoundError as e:
 			print(f"File not found: {e.filename}")
 			return [], {}
-
-
-
 
 	def create_tag_widget(self):
 		customFont = tkFont.Font(family="Helvetica", size=10)
@@ -408,7 +405,6 @@ class TextImageEditor:
 
 		self.removed_tags.append(tag)
 		tag_label.destroy()
-		
 
 		if tag_label == self.currently_marked_tag:
 			self.currently_marked_tag = None
@@ -423,10 +419,11 @@ class TextImageEditor:
 	def save_file(self):
 		if not self.current_file:
 			return
-
-		all_tags = self.unique_tags.copy()
-		for tags in self.common_words_tags.values():
-			all_tags.extend(tags)
+		all_tags = []
+		for tag_list in self.common_words_tags.values():
+			for tag in tag_list:
+				all_tags.append(tag)
+		all_tags.extend(self.unique_tags)
 
 		new_content = ", ".join(all_tags)
 		with open(os.path.join(self.current_directory, self.current_file), "w") as f:
@@ -570,7 +567,7 @@ if __name__ == "__main__":
 	root = tk.Tk()
 	app = TextImageEditor(root)
 	root.geometry("800x600")
-	root.minsize(800,350)
+	root.minsize(800, 350)
 	style = ttk.Style()
 	style.theme_use("classic")
 	style.configure("TScrollbar", arrowsize=15)
